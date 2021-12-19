@@ -1,4 +1,4 @@
-package com.realworld.springdemo;
+package com.realworld;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

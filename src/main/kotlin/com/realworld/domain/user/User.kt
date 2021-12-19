@@ -1,18 +1,21 @@
-package domain
+package com.realworld.domain.user
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.fasterxml.jackson.annotation.JsonTypeName
 import org.hibernate.Hibernate
-import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
+@JsonTypeName("user")
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
 @Entity
-data class User(val username: String, val email: String) {
-
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
-    private var id: Long? = null
+data class User(val username: String,
+                val email: String,
+                val password: String,
+                var bio: String = "",
+                var image: String? = null,
+                @Id @GeneratedValue var id: Long? = null) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
