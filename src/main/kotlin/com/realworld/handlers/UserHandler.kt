@@ -54,11 +54,10 @@ class UserHandler(val repository: UserRepository,
         return repository.save(user)
     }
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     fun getUser(@RequestHeader("Authorization") token: String): User {
-        val context = SecurityContextHolder.getContext().authentication
-
-        return context.principal as User
+        val context = SecurityContextHolder.getContext().authentication.principal as SpringUser
+        return getUserByEmail(context.username)
     }
 
     override fun updateUser(request: UpdateUser): User = TODO("Not yet implemented")
@@ -67,3 +66,5 @@ class UserHandler(val repository: UserRepository,
         return repository.findUserByEmail(email!!) ?: throw UserAlreadyExistsException(email)
     }
 }
+
+typealias SpringUser = org.springframework.security.core.userdetails.User
