@@ -13,6 +13,7 @@ import javax.persistence.Id
 data class User(val username: String,
                 val email: String,
                 val password: String,
+                var token: String = "",
                 var bio: String = "",
                 var image: String? = null,
                 @Id @GeneratedValue var id: Long? = null) {
