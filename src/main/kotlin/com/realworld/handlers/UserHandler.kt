@@ -4,12 +4,13 @@ import com.realworld.api.UserApi
 import com.realworld.domain.user.User
 import com.realworld.domain.user.UserRepository
 import com.realworld.handlers.exception.UserAlreadyExistsException
-import com.realworld.requests.GetUser
 import com.realworld.requests.Login
 import com.realworld.requests.Register
 import com.realworld.requests.UpdateUser
 import com.realworld.util.JwtUtil
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
@@ -35,9 +36,34 @@ class UserHandler(val repository: UserRepository,
         return repository.save(user);
     }
 
-    override fun login(request: Login): User = TODO("Not yet implemented")
+    @PostMapping("/users/login")
+    @ResponseBody
+    override fun login(@RequestBody request: Login): User {
+        val authentication = auth.authenticate(UsernamePasswordAuthenticationToken(request.email!!, request.password!!))
 
-    override fun getUser(request: GetUser): User = TODO("Not yet implemented")
+        SecurityContextHolder.getContext().authentication = authentication
+
+        val principal = authentication.principal as org.springframework.security.core.userdetails.User
+
+        val userDetails = userDetailsService.loadUserByUsername(principal.username)
+
+        val token = jwtUtil.generateTokenForExistingUser(userDetails)
+        val user = getUserByEmail(request.email!!)
+        user.token = token
+
+        return repository.save(user)
+    }
+
+    @GetMapping("/users")
+    fun getUser(@RequestHeader("Authorization") token: String): User {
+        val context = SecurityContextHolder.getContext().authentication
+
+        return context.principal as User
+    }
 
     override fun updateUser(request: UpdateUser): User = TODO("Not yet implemented")
+
+    private fun getUserByEmail(email : String?) : User {
+        return repository.findUserByEmail(email!!) ?: throw UserAlreadyExistsException(email)
+    }
 }

@@ -2,6 +2,7 @@ package com.realworld.authentication.filters
 
 import com.realworld.authentication.CustomUserDetailsService
 import com.realworld.util.JwtUtil
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -15,7 +16,7 @@ class JwtRequestFilter(private val userDetailsService: CustomUserDetailsService,
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val authorizationHeader = request.getHeader("Authorization")
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ").or(authorizationHeader.startsWith("Token "))) {
+        if (SecurityContextHolder.getContext().authentication == null && authorizationHeader != null && authorizationHeader.startsWith("Bearer ").or(authorizationHeader.startsWith("Token "))) {
             val token = authorizationHeader.substringAfter(' ')
             val username: String = jwtUtil.getUsernameFromToken(token)
 

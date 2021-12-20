@@ -31,6 +31,21 @@ class JwtUtil {
         return claimsResolver(claims)
     }
 
+    fun generateTokenForExistingUser(user: UserDetails): String {
+        val claims: Map<String, Any> = HashMap()
+        return doGenerateToken(claims, user.username)
+    }
+
+    fun generateToken(user: User): String {
+        val claims: Map<String, Any> = HashMap()
+        return doGenerateToken(claims, user.email)
+    }
+
+    fun validateToken(token: String?, user: UserDetails): Boolean? {
+        val username = getUsernameFromToken(token)
+        return username == user.username && !isTokenExpired(token)
+    }
+
     private fun getAllClaimsFromToken(token: String?): Claims {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).body
     }
@@ -40,19 +55,9 @@ class JwtUtil {
         return expiration.before(Date())
     }
 
-    fun generateToken(user: User): String {
-        val claims: Map<String, Any> = HashMap()
-        return doGenerateToken(claims, user.username)
-    }
-
     private fun doGenerateToken(claims: Map<String, Any>, subject: String): String {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(Date(System.currentTimeMillis()))
                 .setExpiration(Date(System.currentTimeMillis() + jwtTokenValidity * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact()
-    }
-
-    fun validateToken(token: String?, user: UserDetails): Boolean? {
-        val username = getUsernameFromToken(token)
-        return username == user.username && !isTokenExpired(token)
     }
 }
