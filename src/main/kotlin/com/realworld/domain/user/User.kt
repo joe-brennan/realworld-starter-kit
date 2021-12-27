@@ -10,9 +10,9 @@ import javax.persistence.Id
 @JsonTypeName("user")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
 @Entity
-data class User(val username: String,
-                val email: String,
-                val password: String,
+data class User(var username: String,
+                var email: String,
+                var password: String,
                 var token: String = "",
                 var bio: String = "",
                 var image: String? = null,

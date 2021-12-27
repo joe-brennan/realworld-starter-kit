@@ -8,5 +8,6 @@ import com.realworld.requests.UpdateUser
 interface UserApi {
     fun register(request: Register): User
     fun login(request: Login): User
+    fun getUser(): User
     fun updateUser(request: UpdateUser): User
 }
