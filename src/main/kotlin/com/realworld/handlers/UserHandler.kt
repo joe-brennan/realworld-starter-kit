@@ -1,8 +1,10 @@
 package com.realworld.handlers
 
 import com.realworld.api.UserApi
+import com.realworld.domain.profile.Profile
 import com.realworld.domain.user.User
 import com.realworld.domain.user.UserRepository
+import com.realworld.domain.user.updateProfile
 import com.realworld.handlers.exception.UserAlreadyExistsException
 import com.realworld.requests.Login
 import com.realworld.requests.Register
@@ -14,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
-
 
 @RestController
 @RequestMapping("/api")
@@ -32,6 +33,9 @@ class UserHandler(val repository: UserRepository,
 
         val user = User(request.username!!, request.email!!, passwordEncoder.encode(request.password!!))
         user.token = jwtUtil.generateToken(user)
+
+        user.profile = Profile(user.username)
+        user.profile!!.user = user
 
         return repository.save(user);
     }
@@ -62,6 +66,7 @@ class UserHandler(val repository: UserRepository,
         userFromContext.password = passwordEncoder.encode(request.password) ?: userFromContext.password
         userFromContext.bio = request.bio ?: userFromContext.bio
         userFromContext.image = request.image ?: userFromContext.image
+        userFromContext.updateProfile()
 
         return repository.save(userFromContext)
     }
