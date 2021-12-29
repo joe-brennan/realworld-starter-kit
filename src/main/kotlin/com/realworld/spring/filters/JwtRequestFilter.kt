@@ -1,4 +1,4 @@
-package com.realworld.authentication.filters
+package com.realworld.spring.filters
 
 import com.realworld.authentication.CustomUserDetailsService
 import com.realworld.util.JwtUtil

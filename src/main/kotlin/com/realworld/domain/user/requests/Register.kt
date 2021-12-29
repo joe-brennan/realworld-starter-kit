@@ -1,4 +1,4 @@
-package com.realworld.requests
+package com.realworld.domain.user.requests
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.annotation.JsonTypeName

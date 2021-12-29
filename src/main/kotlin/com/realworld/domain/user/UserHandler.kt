@@ -1,14 +1,10 @@
-package com.realworld.handlers
+package com.realworld.domain.user
 
-import com.realworld.api.UserApi
 import com.realworld.domain.profile.Profile
-import com.realworld.domain.user.User
-import com.realworld.domain.user.UserRepository
-import com.realworld.domain.user.updateProfile
-import com.realworld.handlers.exception.UserAlreadyExistsException
-import com.realworld.requests.Login
-import com.realworld.requests.Register
-import com.realworld.requests.UpdateUser
+import com.realworld.domain.exception.UserAlreadyExistsException
+import com.realworld.domain.user.requests.Login
+import com.realworld.domain.user.requests.Register
+import com.realworld.domain.user.requests.UpdateUser
 import com.realworld.util.JwtUtil
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

@@ -1,7 +1,7 @@
-package com.realworld.authentication
+package com.realworld.util
 
 import com.realworld.domain.user.UserRepository
-import com.realworld.handlers.exception.UserNotFoundException
+import com.realworld.domain.exception.UserNotFoundException
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

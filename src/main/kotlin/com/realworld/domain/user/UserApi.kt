@@ -1,9 +1,9 @@
-package com.realworld.api
+package com.realworld.domain.user
 
 import com.realworld.domain.user.User
-import com.realworld.requests.Login
-import com.realworld.requests.Register
-import com.realworld.requests.UpdateUser
+import com.realworld.domain.user.requests.Login
+import com.realworld.domain.user.requests.Register
+import com.realworld.domain.user.requests.UpdateUser
 
 interface UserApi {
     fun register(request: Register): User

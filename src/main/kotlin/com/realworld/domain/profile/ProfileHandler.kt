@@ -1,10 +1,8 @@
-package com.realworld.handlers
+package com.realworld.domain.profile
 
-import com.realworld.api.ProfileApi
-import com.realworld.domain.profile.Profile
-import com.realworld.domain.profile.ProfileRepository
 import com.realworld.domain.user.User
 import com.realworld.domain.user.UserRepository
+import com.realworld.handlers.SpringUser
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 

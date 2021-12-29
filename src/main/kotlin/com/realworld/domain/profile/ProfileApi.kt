@@ -1,4 +1,4 @@
-package com.realworld.api
+package com.realworld.domain.profile
 
 import com.realworld.domain.profile.Profile
 
