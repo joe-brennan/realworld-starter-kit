@@ -2,10 +2,9 @@ package com.realworld.domain.profile
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.annotation.JsonTypeName
-import com.realworld.api.ProfileApi
 import com.realworld.domain.user.User
+import org.hibernate.Hibernate
 import javax.persistence.*
-
 
 @JsonTypeName("profile")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
@@ -20,7 +19,21 @@ data class Profile(
     @OneToMany(targetEntity=Profile::class, fetch=FetchType.EAGER)
     var following: List<Profile> = emptyList()
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(mappedBy = "address")
     var user: User? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as Profile
+
+        return id != null && id == other.id
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id , username = $username , bio = $bio , image = $image )"
+    }
 }

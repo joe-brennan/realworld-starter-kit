@@ -15,17 +15,12 @@ internal class LoadDatabase {
         return CommandLineRunner {
             val username1 = "Bilbo Baggins"
             val user1 = User(username1, "bilbo@mail.com", "password")
-            val profile1 = Profile(username1)
-            user1.profile = profile1
-            profile1.user = user1
-
+            user1.profile = Profile(username1)
             log.info("Preloading " + repository.save(user1))
 
             val username2 = "Frodo Baggins"
             val user2 = User(username2, "frodo@mail.com", "password")
-            val profile2 = Profile(username2)
-            user2.profile = profile2
-            profile2.user = user2
+            user2.profile = Profile(username2)
 
             log.info("Preloading " + repository.save(user2))
         }

@@ -19,8 +19,17 @@ data class User(var username: String,
                 @Id @GeneratedValue var id: Long? = null) {
 
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
     var profile: Profile? = null
+
+    @OneToOne(orphanRemoval = true)
+    @JoinTable(
+        name = "users_address",
+        joinColumns = [JoinColumn(name = "user_null")],
+        inverseJoinColumns = [JoinColumn(name = "address_id")]
+    )
+    open var address: Profile? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api")
 class ProfileHandler(val repository: ProfileRepository) : ProfileApi {
 
-    @GetMapping("/profile/{username}")
+    @GetMapping("/profiles/{username}")
     override fun getProfile(@PathVariable(value = "username") username: String?): Profile =
         username?.let { repository.findUserByUsername(it) } ?: throw IllegalArgumentException()
 

@@ -35,8 +35,6 @@ class UserHandler(val repository: UserRepository,
         user.token = jwtUtil.generateToken(user)
 
         user.profile = Profile(user.username)
-        user.profile!!.user = user
-
         return repository.save(user);
     }
 
