@@ -16,8 +16,7 @@ data class Profile(
     var image: String? = null,
     @Id @GeneratedValue var id: Long? = null) {
 
-    @OneToMany(targetEntity=Profile::class, fetch=FetchType.EAGER)
-    var following: List<Profile> = emptyList()
+    var following: Boolean = false
 
     @OneToOne(mappedBy = "address")
     var user: User? = null

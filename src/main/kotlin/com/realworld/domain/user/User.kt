@@ -16,6 +16,8 @@ data class User(var username: String,
                 var token: String = "",
                 var bio: String = "",
                 var image: String? = null,
+                @OneToMany(targetEntity=Profile::class, fetch=FetchType.EAGER)
+                var following: MutableList<Profile> = mutableListOf(),
                 @Id @GeneratedValue var id: Long? = null) {
 
 

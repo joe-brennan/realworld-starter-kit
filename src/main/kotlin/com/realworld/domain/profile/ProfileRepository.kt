@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository
 interface ProfileRepository : JpaRepository<Profile, Long>{
 
     @Throws(UserNotFoundException::class)
-    fun findUserByUsername(username: String) : Profile?
+    fun findProfileByUsername(username: String) : Profile?
 }
