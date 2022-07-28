@@ -31,7 +31,9 @@ class SecurityConfigurer(val userDetailsService : CustomUserDetailsService,
     }
 
     override fun configure(http: HttpSecurity?) {
-        http!!.csrf().disable().authorizeRequests().antMatchers("/api/users", "/api/users/login").permitAll()
+        http!!.csrf().disable().authorizeRequests().antMatchers("/api/users",
+            "/api/users/login",
+            "/api/articles").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

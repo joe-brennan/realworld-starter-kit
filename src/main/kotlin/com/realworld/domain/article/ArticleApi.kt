@@ -1,7 +1,7 @@
 package com.realworld.domain.article
 
 interface ArticleApi {
-    fun listArticles()
+    fun listArticles(tag : String?, author: String?, favorited: String?) : String
     fun getFeed()
     fun getArticle()
     fun createArticle()
