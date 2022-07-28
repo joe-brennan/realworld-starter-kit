@@ -1,6 +1,6 @@
 package com.realworld.spring.filters
 
-import com.realworld.authentication.CustomUserDetailsService
+import com.realworld.util.CustomUserDetailsService
 import com.realworld.util.JwtUtil
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder

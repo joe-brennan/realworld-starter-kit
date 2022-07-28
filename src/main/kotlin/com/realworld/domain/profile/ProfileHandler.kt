@@ -1,8 +1,8 @@
 package com.realworld.domain.profile
 
+import com.realworld.domain.user.SpringUser
 import com.realworld.domain.user.User
 import com.realworld.domain.user.UserRepository
-import com.realworld.handlers.SpringUser
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 
